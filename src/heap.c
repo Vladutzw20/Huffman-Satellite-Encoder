@@ -1,46 +1,44 @@
-/*Gîlcă_Florian_Vlăduț_313CA*/
-#include "structuri.h"
+/* Gilca Florian-Vladut */
+#include "structures.h"
 #include "auxiliary.h"
 #include "heap.h"
 
-
 MinHeap *createMinHeap(int capacity)
 {
-    MinHeap *heap = malloc(sizeof(*heap));// alocare memorie pentru heap
+    MinHeap *heap = malloc(sizeof(*heap)); /* allocate memory for the heap */
     if (!heap)
     {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
 
-    heap->arr = malloc(sizeof(Node *) * capacity);// alocare memorie pentru vectorul de noduri
+    heap->arr = malloc(sizeof(Node *) * capacity); /* allocate memory for the node array */
     if (!heap->arr)
     {
         fprintf(stderr, "Memory allocation failed\n");
         free(heap);
         exit(EXIT_FAILURE);
     }
-    heap->size = 0;// initializare dimensiune heap
-    heap->capacity = capacity;// initializare capacitate heap
+    heap->size = 0;         /* heap starts empty */
+    heap->capacity = capacity;
     return heap;
 }
 
 void minHeapify(MinHeap *heap, int index)
 {
-    int smallest = index;// indexul celui mai mic nod
-    int left = 2 * index + 1; //copil stang
-    int right = 2 * index + 2; //copil drept
-
+    int smallest = index; /* index of the smallest node */
+    int left = 2 * index + 1;  /* left child */
+    int right = 2 * index + 2; /* right child */
 
     if (left < heap->size && compare_nodes(heap->arr[left], heap->arr[smallest]))
-        smallest = left;// comparare nod stang cu cel mai mic nod
+        smallest = left; /* compare left child with current smallest */
     if (right < heap->size && compare_nodes(heap->arr[right], heap->arr[smallest]))
-        smallest = right;// comparare nod drept cu cel mai mic nod
+        smallest = right; /* compare right child with current smallest */
 
     if (smallest != index)
     {
         swap(&heap->arr[index], &heap->arr[smallest]);
-        minHeapify(heap, smallest);// apel recursiv pentru a respecta proprietatea heap-ului
+        minHeapify(heap, smallest); /* recurse to keep the heap property */
     }
 }
 
@@ -50,13 +48,12 @@ void insertHeap(MinHeap *heap, Node *node)
     {
         fprintf(stderr, "Heap full\n");
         exit(1);
-    }// verificare daca heap-ul este plin
+    } /* check if the heap is full */
 
     int i = heap->size++;
-    heap->arr[i] = node;// adaugare nod in vectorul de noduri
+    heap->arr[i] = node; /* add the node to the array */
 
-
-    // Plasare nod in pozitia corecta
+    /* bubble the node up to its correct position */
     while (i && compare_nodes(heap->arr[i], heap->arr[(i - 1) / 2]))
     {
         swap(&heap->arr[i], &heap->arr[(i - 1) / 2]);
@@ -64,13 +61,12 @@ void insertHeap(MinHeap *heap, Node *node)
     }
 }
 
-
 Node *extractMin(MinHeap *heap)
 {
     if (!heap->size)
         return NULL;
-    Node *root = heap->arr[0];//minimul este root-ul heap-ului
+    Node *root = heap->arr[0]; /* the minimum is the heap's root */
     heap->arr[0] = heap->arr[--heap->size];
     minHeapify(heap, 0);
-    return root;//extragere root
+    return root; /* return the extracted root */
 }

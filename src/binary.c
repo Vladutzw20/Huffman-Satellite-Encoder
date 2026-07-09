@@ -1,5 +1,5 @@
-/*Gîlcă_Florian_Vlăduț_313CA*/
-#include "structuri.h"
+/* Gilca Florian-Vladut */
+#include "structures.h"
 #include "auxiliary.h"
 #include "heap.h"
 #include "tree.h"
@@ -12,16 +12,15 @@ void binary_to_tree(Node *root, const char *binary, FILE *out)
     {
         if (binary[i] == '0')
             current = current->left;
-        else 
+        else
             current = current->right;
         if (!current)
             return;
 
-
         if (!current->left && !current->right)
         {
             fprintf(out, "%s ", current->label);
-            current = root;
+            current = root; /* start over for the next code in the string */
         }
     }
     fprintf(out, "\n");
@@ -45,7 +44,6 @@ binary_node_t *create_node_array(Node *root, int *out_size)
 
     return node_array;
 }
-
 
 void build_codes(Node *node, char *path, binary_node_t *node_array, int *index)
 {

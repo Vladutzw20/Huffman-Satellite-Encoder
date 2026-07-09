@@ -1,5 +1,5 @@
-/*Gîlcă_Florian_Vlăduț_313CA*/
-#include "structuri.h"
+/* Gilca Florian-Vladut */
+#include "structures.h"
 #include "auxiliary.h"
 #include "heap.h"
 #include "tree.h"
@@ -21,7 +21,7 @@ void task2(Node *root, FILE *in, FILE *out)
         {
             return;
         }
-        binary[strcspn(binary, "\n")] = 0; // elimina newline
+        binary[strcspn(binary, "\n")] = 0; /* strip the trailing newline */
         binary_to_tree(root, binary, out);
     }
 }
@@ -31,7 +31,6 @@ void task3(binary_node_t *node_array, int nr_nodes, FILE *in, FILE *out)
     int n_labels;
     if (fscanf(in, "%d\n", &n_labels) != 1)
     {
-
         return;
     }
 
@@ -40,10 +39,9 @@ void task3(binary_node_t *node_array, int nr_nodes, FILE *in, FILE *out)
     {
         if (!fgets(label, MAX_LINE, in))
         {
-
             return;
         }
-        label[strcspn(label, "\n")] = 0; // elimina newline
+        label[strcspn(label, "\n")] = 0; /* strip the trailing newline */
 
         for (int j = 0; j < nr_nodes; ++j)
         {
@@ -62,19 +60,17 @@ void task4(Node *root, FILE *in, FILE *out)
     int n_labels;
     if (fscanf(in, "%d\n", &n_labels) != 1)
     {
-
         return;
     }
 
     char *label = malloc(MAX_LINE);
     Node *ancestor = NULL;
-    int ok = 1;
+    int first = 1;
 
     for (int i = 0; i < n_labels; ++i)
     {
         if (!fgets(label, MAX_LINE, in))
         {
-
             return;
         }
         label[strcspn(label, "\n")] = 0;
@@ -82,14 +78,13 @@ void task4(Node *root, FILE *in, FILE *out)
         Node *child = findNodeByLabel(root, label);
         if (!child)
         {
-
             return;
         }
 
-        if (ok)
+        if (first)
         {
             ancestor = child;
-            ok = 0;
+            first = 0;
         }
         else
         {
@@ -101,6 +96,3 @@ void task4(Node *root, FILE *in, FILE *out)
 
     free(label);
 }
-
-
-

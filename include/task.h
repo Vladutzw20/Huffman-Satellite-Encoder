@@ -1,7 +1,7 @@
-/*Gîlcă_Florian_Vlăduț_313CA*/
+/* Gilca Florian-Vladut */
 #ifndef TASK_H
 #define TASK_H
-#include "structuri.h"
+#include "structures.h"
 #include "auxiliary.h"
 #include "heap.h"
 #include "tree.h"
